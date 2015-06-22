@@ -1,0 +1,260 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6431D6901A234E0700BF8074 /* ScoreGenomicROI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6431D68F1A234E0700BF8074 /* ScoreGenomicROI.cpp */; };
+		643AAB511A13EDC000C51A6A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 643AAB501A13EDC000C51A6A /* main.cpp */; };
+		64D34A411B3808D300555469 /* libFastScience.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 64D34A401B3808D300555469 /* libFastScience.dylib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		643AAB4B1A13EDC000C51A6A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		6431D68E1A234DFC00BF8074 /* ScoreGenomicROI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScoreGenomicROI.h; sourceTree = "<group>"; };
+		6431D68F1A234E0700BF8074 /* ScoreGenomicROI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScoreGenomicROI.cpp; sourceTree = "<group>"; };
+		643AAB4D1A13EDC000C51A6A /* ScoreGenomicROI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ScoreGenomicROI; sourceTree = BUILT_PRODUCTS_DIR; };
+		643AAB501A13EDC000C51A6A /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		64D34A401B3808D300555469 /* libFastScience.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libFastScience.dylib; path = ../../../../../usr/local/lib/libFastScience.dylib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		643AAB4A1A13EDC000C51A6A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64D34A411B3808D300555469 /* libFastScience.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		643AAB441A13EDC000C51A6A = {
+			isa = PBXGroup;
+			children = (
+				64D34A401B3808D300555469 /* libFastScience.dylib */,
+				643AAB4F1A13EDC000C51A6A /* scr */,
+				643AAB4E1A13EDC000C51A6A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		643AAB4E1A13EDC000C51A6A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				643AAB4D1A13EDC000C51A6A /* ScoreGenomicROI */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		643AAB4F1A13EDC000C51A6A /* scr */ = {
+			isa = PBXGroup;
+			children = (
+				643AAB501A13EDC000C51A6A /* main.cpp */,
+				6431D68E1A234DFC00BF8074 /* ScoreGenomicROI.h */,
+				6431D68F1A234E0700BF8074 /* ScoreGenomicROI.cpp */,
+			);
+			path = scr;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		643AAB4C1A13EDC000C51A6A /* ScoreGenomicROI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 643AAB541A13EDC000C51A6A /* Build configuration list for PBXNativeTarget "ScoreGenomicROI" */;
+			buildPhases = (
+				643AAB491A13EDC000C51A6A /* Sources */,
+				643AAB4A1A13EDC000C51A6A /* Frameworks */,
+				643AAB4B1A13EDC000C51A6A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ScoreGenomicROI;
+			productName = EpigeneticScoring;
+			productReference = 643AAB4D1A13EDC000C51A6A /* ScoreGenomicROI */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		643AAB451A13EDC000C51A6A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Manuel Tuschen";
+				TargetAttributes = {
+					643AAB4C1A13EDC000C51A6A = {
+						CreatedOnToolsVersion = 6.1;
+					};
+				};
+			};
+			buildConfigurationList = 643AAB481A13EDC000C51A6A /* Build configuration list for PBXProject "ScoreGenomicROI" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 643AAB441A13EDC000C51A6A;
+			productRefGroup = 643AAB4E1A13EDC000C51A6A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				643AAB4C1A13EDC000C51A6A /* ScoreGenomicROI */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		643AAB491A13EDC000C51A6A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6431D6901A234E0700BF8074 /* ScoreGenomicROI.cpp in Sources */,
+				643AAB511A13EDC000C51A6A /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		643AAB521A13EDC000C51A6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		643AAB531A13EDC000C51A6A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		643AAB551A13EDC000C51A6A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				LIBRARY_SEARCH_PATHS = "";
+				"LIBRARY_SEARCH_PATHS[arch=*]" = /usr/local/lib;
+				PRODUCT_NAME = ScoreGenomicROI;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = /usr/local/include;
+			};
+			name = Debug;
+		};
+		643AAB561A13EDC000C51A6A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				LIBRARY_SEARCH_PATHS = "";
+				"LIBRARY_SEARCH_PATHS[arch=*]" = /usr/local/lib;
+				PRODUCT_NAME = ScoreGenomicROI;
+				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = /usr/local/include;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		643AAB481A13EDC000C51A6A /* Build configuration list for PBXProject "ScoreGenomicROI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				643AAB521A13EDC000C51A6A /* Debug */,
+				643AAB531A13EDC000C51A6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		643AAB541A13EDC000C51A6A /* Build configuration list for PBXNativeTarget "ScoreGenomicROI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				643AAB551A13EDC000C51A6A /* Debug */,
+				643AAB561A13EDC000C51A6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 643AAB451A13EDC000C51A6A /* Project object */;
+}
