@@ -11,7 +11,7 @@ LIBS = libFastScience.dylib
 CC = g++
 CFLAGS = -std=c++11 -Wall -I$(HEADER_PATH)
 
-$(TARGET): $(OBJECTS) $(HEADERS)
+$(TARGET): $(OBJECTS) $(HEADERS) main.cpp
 	$(CC) $(CFLAGS) -o $(TARGET) $(LIB_PATH)/$(LIBS) $(OBJECTS) main.cpp
 
 ScoreGenomicROI.o : ScoreGenomicROI.cpp ScoreGenomicROI.h

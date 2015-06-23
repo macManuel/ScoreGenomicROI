@@ -148,7 +148,6 @@ void ScoreGenomicROI::scoreRegions() {
           jt++;
           continue;
         }
-        std::cout << "Error in scoring! Some unhandeld case occured. Please report a bug!" << std::endl;
         jt++;
       }
     }
@@ -162,11 +161,15 @@ void ScoreGenomicROI::scoreRegions() {
     it->setScore(score/ (double) frameLength);
     
     // save number of CpGs
-    if (this->_countBins == true && it->hasAttribute_string() == true) {
-      std::string tmp_str = it->attribute_string();
-      it->setAttribute_string(tmp_str + "; CpGs "+ std::to_string(binCounter));
-    } else {
-      it->addAttribute("CpGs", std::to_string(binCounter));
+    if (this->_countBins == true) {
+      if (it->hasAttribute_string() == true) {
+     
+        std::string tmp_str = it->attribute_string();
+        it->setAttribute_string(tmp_str + "; CpGs "+ std::to_string(binCounter));
+      } else {
+        
+        it->addAttribute("CpGs", std::to_string(binCounter));
+      }
     }
   }
 }
@@ -179,15 +182,16 @@ void ScoreGenomicROI::boundDiscretization(std::vector<double> const & bounds) {
     // calculate the discrete scores
     for (auto it = this->_positions->begin(); it != this->_positions->end() ; ++it) {
         bool scored = false;
-        
+      
         // first check if the score is already zero and eventually need not to be taken into account.
         if (this->_ignoreZero == true && it->score() == 0) {
-            scored = true;
+          it->setScore(0);
+          scored = true;
         }
         // first check if the score is smaller zero and eventually need not to be taken into account.
         if (_ignoreNegative == true && it->score() < 0) {
-            scored = true;
             it->setScore(0);
+            scored = true;
         }
         // set score according to border
         for (unsigned long i = 1; i <= bins; i++) {
@@ -200,6 +204,8 @@ void ScoreGenomicROI::boundDiscretization(std::vector<double> const & bounds) {
         if (scored == false) {
             it->setScore(bins+1);
         }
+      
+
     }
 }
 
@@ -227,7 +233,7 @@ void ScoreGenomicROI::quantileDiscretization(unsigned int numb) {
   std::vector<double> quantiles;
   // determine the quantiles
   for (unsigned int i = 1; i <= numb; ++i) {
-      quantiles.push_back(dist.quantile((double) i / (double) numb));
+    quantiles.push_back(dist.quantile((double) i / (double) numb));
   }
     
     this->boundDiscretization(quantiles);

@@ -21,7 +21,14 @@
 // Parameters:
 // # --regions <filename>:  A .gff file (version 1-3) including the path with those genomic regrions to extract from.
 // # --scores <filename>: .bedgraph or .wig file containing a score for the whole genome.
-// # --promoter <-bp +bp>: If this flag is set the start and stop values are set for the promoter size. -bp and +bp reflect the start and end position of the promoter relative to the TSS
+//
+// # -d: A flag indicating if the -n and -n flag should also be taken into account during discretization when given. This means, that when -dnz is set, only values ≥ 0 are considered. All other scores were set to 0 and are therfore smaller than the first disrete class 1.
+// # -n: A flag to indicate if negative values should be ignored during the scoring.
+// # -z: A flag to indicate if zeros should be ignored during the scoring.
+// # -c: A flag to indicate if the number of CpGs should be counted. Setting this flag makes only sense if one score per CpG is set in the score file!
+// # --quantile <int>: One integer to determine in how many cases the scores should be classified in, based on the quantile they are located in. The first case is 1.
+// # --interval <int>: One integer to determine in how many cases the scores should be classified in, based on the intervall they are located in. The first case is 1.
+// # --bounds <double> <double> ...: A list of upper bounds for discetization. According to these bounds, the scores are classified into cases starting with 1.
 
 int main(int argc, const char * argv[]) {    
   
@@ -31,13 +38,13 @@ int main(int argc, const char * argv[]) {
   fs::ClapSingleArgument<std::string> regionFile(myParser, "regions", "<filename>", "A .gff file (version 1-3) including the path with those genomic regrions to score.");
   fs::ClapSingleArgument<std::string> scoreFile(myParser, "scores", "<filename>", ".bedgraph or .wig file containing a score for the whole genome.");
   
-  fs::ClapSingleArgument<bool> ignoreByDiscretization(myParser, 'd', "", "A flag indicating if the -n and -n flag should also be taken into account during discretization when given. This means, that when -d is set, only values ≥ or > are considered. All other scores were set to 0 and are therfore smaller than the first disrete class 1.", false);
+  fs::ClapSingleArgument<bool> ignoreByDiscretization(myParser, 'd', "", "A flag indicating if the -n and -n flag should also be taken into account during discretization when given. This means, that when -dnz is set, only values ≥ 0 are considered. All other scores were set to 0 and are therfore smaller than the first disrete class 1.", false);
   fs::ClapSingleArgument<bool> ignoreNegative(myParser, 'n', "", "A flag to indicate if negative values should be ignored during the scoring.", false);
   fs::ClapSingleArgument<bool> ignoreZero(myParser, 'z', "", "A flag to indicate if zeros should be ignored during the scoring.", false);
   fs::ClapSingleArgument<bool> countCpG(myParser, 'c', "", "A flag to indicate if the number of CpGs should be counted. Setting this flag makes only sense if one score per CpG is set in the score file!", false);
   
-  fs::ClapSingleArgument<double> quantileDiscetize(myParser, "quantile", "<int> ", "One integer to determine in how many cases the scores should be classified in based on the quantile they are located instarting with 1.", false);
-  fs::ClapSingleArgument<double> intervalDiscetize(myParser, "interval", "<int>", "One integer to determine in how many cases the scores should be classified in based on the intervall they are located in starting with 1.", false);
+  fs::ClapSingleArgument<double> quantileDiscetize(myParser, "quantile", "<int> ", "One integer to determine in how many cases the scores should be classified in, based on the quantile they are located in. The first case is 1.", false);
+  fs::ClapSingleArgument<double> intervalDiscetize(myParser, "interval", "<int>", "One integer to determine in how many cases the scores should be classified in, based on the intervall they are located in. The first case is 1.", false);
   fs::ClapMultiArgument<double> boundsDiscetize(myParser, "bounds", "<double> <double> ...", "A list of upper bounds for discetization. According to these bounds, the scores are classified into cases starting with 1.", false);
 
   // Now perform the parsing and extract the values
@@ -57,11 +64,28 @@ int main(int argc, const char * argv[]) {
   // Next we need the scores
   std::list<fs::BedgraphFormat> bedgraph_list;
 
+  std::string output_path;
+  std::string output_filename;
+  
   try {
     fs::FileChecker checkSuffix;
     checkSuffix.check(scoreFile.value());
-    
-    if (checkSuffix.isBedgraph() == false && checkSuffix.isWig() == false ) {
+
+    if (checkSuffix.isBedgraph() == true) {
+
+      fs::BedgraphReader bedgraph_input(scoreFile.value());
+      bedgraph_input.readFromFile(bedgraph_list);
+      output_path = bedgraph_input.path();
+      output_filename = bedgraph_input.file();
+      
+    } else if (checkSuffix.isWig() == true ) {
+      
+      fs::WigReader wig_input(scoreFile.value());
+      wig_input.readFromFile(bedgraph_list);
+      output_path = wig_input.path();
+      output_filename = wig_input.file();
+      
+    } else {
       throw fs::Exception("No valid scoring file was given!");
     }
   } catch (fs::Exception &e) {
@@ -69,13 +93,13 @@ int main(int argc, const char * argv[]) {
     std::cout << e.message() << std::endl;
     exit(1);
   }
-  
+
   // Now score the genomic regions
   ScoreGenomicROI scoring(gff_list, bedgraph_list, ignoreNegative.value(), ignoreZero.value(), countCpG.value());
   scoring.scoreRegions();
   
   // write the output file
-  fs::GffWriter gff_output(gff_input.path() + gff_input.file() + "_scored" + gff_input.suffix());
+  fs::GffWriter gff_output(output_path + output_filename + "_scored" + gff_input.suffix());
   gff_output.writeIntoFile(gff_list);
   
   // Next performe the disretizations
@@ -86,10 +110,10 @@ int main(int argc, const char * argv[]) {
   bool ignore_zero = false;
   bool ignore_negative = false;
   
-  if (ignoreByDiscretization .value()== true && ignoreZero.value() == true) {
+  if (ignoreByDiscretization.value()== true && ignoreZero.value() == true) {
     ignore_zero = true;
   }
-  if (ignoreByDiscretization .value()== true && ignoreNegative.value() == true) {
+  if (ignoreByDiscretization.value()== true && ignoreNegative.value() == true) {
     ignore_negative = true;
   }
   
@@ -101,7 +125,7 @@ int main(int argc, const char * argv[]) {
     discretizing.boundDiscretization(boundsDiscetize.value());
     
     // write the output file
-    fs::GffWriter gff_output(gff_input.path() + gff_input.file() + "_scored_discrete_by_bounds" + gff_input.suffix());
+    fs::GffWriter gff_output(output_path + output_filename + "_scored_discrete_by_bounds" + gff_input.suffix());
     gff_output.writeIntoFile(gff_scored);
   }
   
@@ -110,16 +134,16 @@ int main(int argc, const char * argv[]) {
     discretizing.intervallDiscretization(intervalDiscetize.value());
     
     // write the output file
-    fs::GffWriter gff_output(gff_input.path() + gff_input.file() + "_scored_discrete_by_intervall" + gff_input.suffix());
+    fs::GffWriter gff_output(output_path + output_filename + "_scored_discrete_by_intervall" + gff_input.suffix());
     gff_output.writeIntoFile(gff_scored);
   }
   
   if (quantileDiscetize.isSet() == true) {
     gff_scored = gff_list;
-    discretizing.intervallDiscretization(quantileDiscetize.value());
+    discretizing.quantileDiscretization(quantileDiscetize.value());
     
     // write the output file
-    fs::GffWriter gff_output(gff_input.path() + gff_input.file() + "_scored_discrete_by_quantile" + gff_input.suffix());
+    fs::GffWriter gff_output(output_path + output_filename + "_scored_discrete_by_quantile" + gff_input.suffix());
     gff_output.writeIntoFile(gff_scored);
   }
 
